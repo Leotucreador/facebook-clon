@@ -4,7 +4,7 @@ import { FcStackOfPhotos } from "react-icons/fc";
 import { Subir } from "../popup/Subir";
 
 export const Publicar = () => {
-  const [subir, setSubir] = useState(false); // Corregido el nombre del estado
+  const [subir, setSubir] = useState(false);
 
   return (
     <section className="bg-[#252728] mb-7 text-white p-4 rounded-lg shadow-md w-full max-w-md">
@@ -19,26 +19,27 @@ export const Publicar = () => {
           type="text"
           onClick={() => setSubir(true)}
           placeholder="¿Qué estás pensando, Leonardo?"
-          className="flex-1 bg-[#3A3B3C] text-white p-2 rounded-full outline-none"
-          
+          className="flex-1 bg-[#3A3B3C] text-white p-2 rounded-full outline-none cursor-pointer"
         />
       </div>
-
       <hr className="my-3 border-gray-700" />
-
-      <div className="flex justify-around ">
-
-        <button className="flex items-center hover:bg-gray-500 gap-2 text-red-500">
-          <FaVideo className="text-xl " />
+      
+      {/* Botones de acción */}
+      <div className="flex justify-around flex-wrap">
+        <button className="flex items-center justify-center w-full md:w-auto hover:bg-gray-500 gap-2 text-red-500 p-2 rounded-lg">
+          <FaVideo className="text-xl" />
           <span>Video en vivo</span>
         </button>
-        <button className="flex items-center gap-2 hover:bg-gray-500 text-green-500" onClick={() => setSubir(true)}>
+        <button
+          className="flex items-center justify-center w-full md:w-auto hover:bg-gray-500 gap-2 text-green-500 p-2 rounded-lg"
+          onClick={() => setSubir(true)}
+        >
           <FcStackOfPhotos className="text-xl" />
           <span>Foto/video</span>
         </button>
       </div>
 
-      {subir && (<Subir subir={subir} cerrar={() => setSubir(false)} />)}
+      {subir && <Subir cerrar={() => setSubir(false)} />}
     </section>
   );
 };

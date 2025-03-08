@@ -1,157 +1,176 @@
-import React, { useState } from "react";
-import { IoClose } from "react-icons/io5";
-import { BsEmojiSmile } from "react-icons/bs";
-import { FaImages, FaUserTag } from "react-icons/fa";
-import { MdLocationOn } from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import { FaImages } from "react-icons/fa";
 import { GiEarthAmerica } from "react-icons/gi";
-import EmojiPicker from "emoji-picker-react";
+import { IoClose } from "react-icons/io5";
 import { supabase } from "../Lib/Supabase";
 
-export const Subir = ({ subir, cerrar }) => {
+export const Subir = ({ cerrar }) => {
   const [text, setText] = useState("");
-  const [showPicker, setShowPicker] = useState(false);
+  const [nombre, setNombre] = useState("Cargando...");
   const [image, setImage] = useState(null);
+  const [video, setVideo] = useState(null);
   const [file, setFile] = useState(null);
+  const [videoFile, setVideoFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    const fetchNombre = async () => {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) {
+        setNombre("Error al obtener sesión");
+        return;
+      }
+      if (!sessionData?.session?.user) {
+        setNombre("Usuario no autenticado");
+        return;
+      }
 
-  if (!subir) return null;
+      const userId = sessionData.session.user.id;
 
-  const handleEmojiClick = (emojiData) => {
-    setText((prev) => prev + emojiData.emoji);
-    setShowPicker(false);
-  };
+      const { data, error } = await supabase
+        .from("session")
+        .select("nombre")
+        .eq("id_user", userId)
+        .maybeSingle();
+        console.log("ID del usuario autenticado:", userId);
 
-  const handleImageUpload = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setImage(URL.createObjectURL(selectedFile));
-    }
-  };
+      if (error) {
+        setNombre("Error al obtener datos");
+        return;
+      }
+      if (!data) {
+        setNombre("Usuario sin datos");
+        return;
+      }
+      setNombre(data.nombre || "Usuario sin nombre");
+    };
+
+    fetchNombre();
+  }, []);
 
   const handlePost = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     let imageUrl = null;
+    let videoUrl = null;
 
-    // Si hay una imagen, subirla a Supabase Storage
     if (file) {
       const fileName = `${Date.now()}_${file.name}`;
-      const { data, error } = await supabase.storage
-        .from("posts") 
-        .upload(fileName, file);
-
+      const { error } = await supabase.storage.from("posts").upload(fileName, file);
       if (error) {
-        console.error("Error al subir imagen:", error);
         setLoading(false);
         return;
       }
-
-      // Obtener URL pública de la imagen
       imageUrl = `https://gpamixltmhtluwtqhvkp.supabase.co/storage/v1/object/public/posts/${fileName}`;
     }
 
-    // Guardar la publicación en la tabla `posts`
+    if (videoFile) {
+      const videoName = `${Date.now()}_${videoFile.name}`;
+      const { error } = await supabase.storage.from("posts").upload(videoName, videoFile);
+      if (error) {
+        setLoading(false);
+        return;
+      }
+      videoUrl = `https://gpamixltmhtluwtqhvkp.supabase.co/storage/v1/object/public/posts/${videoName}`;
+    }
+
     const { error } = await supabase.from("posts").insert([
       {
         created_at: new Date(),
-        usuario: "Leonardo Gutiérrez",
+        usuario: nombre,
         texto: text,
         imagen: imageUrl,
+        video: videoUrl,
       },
     ]);
 
-    if (error) {
-      console.error("Error al guardar publicación:", error);
-    } else {
-      console.log("Publicación subida con éxito.");
+    if (!error) {
       setText("");
       setImage(null);
+      setVideo(null);
       setFile(null);
-      cerrar(); 
+      setVideoFile(null);
+      cerrar();
     }
-
     setLoading(false);
   };
 
   return (
-    <>
-<div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <form className="bg-[#252728] p-6 rounded-lg shadow-lg w-full max-w-md relative" onSubmit={handlePost}>
-          <div className="flex justify-between items-center pb-2 border-b border-gray-600">
-            <h2 className="text-lg font-semibold text-white">Crear Publicación</h2>
-            <button onClick={cerrar} className="text-2xl cursor-pointer text-gray-300 hover:text-white">
-              <IoClose />
-            </button>
-          </div>
-
-          <div className="flex items-center gap-3 mt-3">
-            <img src="https://via.placeholder.com/40" alt="Perfil" className="w-10 h-10 rounded-full" />
-            <div>
-              <h3 className="text-white font-medium">Leonardo Gutiérrez</h3>
-              <div className="flex items-center text-sm text-gray-400">
-                <GiEarthAmerica className="mr-1" />
-                <span>Público</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-3 relative">
-            <textarea
-              placeholder="¿Qué estás pensando, Leonardo?"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              className="w-full bg-[#3A3B3C] text-white p-3 rounded-lg outline-none resize-none h-20"
-            />
-            <button type="button" onClick={() => setShowPicker(!showPicker)} className="absolute bottom-2 right-3">
-              <BsEmojiSmile className="text-yellow-400 text-2xl" />
-            </button>
-          </div>
-
-          {showPicker && (
-            <div className="absolute top-28 left-10 bg-[#1C1C1D] p-2 rounded-lg shadow-lg">
-              <EmojiPicker onEmojiClick={handleEmojiClick} />
-            </div>
-          )}
-
-          {image && (
-            <div className="mt-3 relative">
-              <img src={image} alt="Preview" className="w-full rounded-lg" />
-              <button onClick={() => setImage(null)} className="absolute top-1 right-1 bg-black bg-opacity-50 text-white p-1 rounded-full">
-                <IoClose />
-              </button>
-            </div>
-          )}
-
-          <label className="mt-3 flex items-center gap-2 bg-[#3A3B3C] p-2 rounded-lg cursor-pointer text-white text-sm">
-            <FaImages className="text-green-400" />
-            <span>Agregar fotos/videos</span>
-            <input type="file" onChange={handleImageUpload} className="hidden" />
-          </label>
-
-          <div className="mt-3 flex justify-around text-white text-sm">
-            <button className="flex items-center gap-2 hover:text-gray-400">
-              <FaUserTag className="text-blue-400" />
-              Etiquetar amigos
-            </button>
-            <button className="flex items-center gap-2 hover:text-gray-400">
-              <MdLocationOn className="text-red-400" />
-              Ubicación
-            </button>
-          </div>
-
-          <button
-            type="submit"
-            disabled={!text && !image || loading}
-            className={`w-full mt-3 p-2 rounded-lg font-semibold 
-                ${text || image ? "bg-blue-500 text-white" : "bg-gray-500 text-gray-300 cursor-not-allowed"}
-                ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
-          >
-            {loading ? "Publicando..." : "Publicar"}
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <form className="bg-[#252728] p-6 rounded-lg shadow-lg w-full max-w-md relative" onSubmit={handlePost}>
+        <div className="flex justify-between items-center pb-2 border-b border-gray-600">
+          <h2 className="text-lg font-semibold text-white">Crear Publicación</h2>
+          <button onClick={cerrar} className="text-2xl cursor-pointer text-gray-300 hover:text-white">
+            <IoClose />
           </button>
-        </form>
-      </div>
-    </>
+        </div>
+
+        <div className="flex items-center gap-3 mt-3">
+          <img src="https://via.placeholder.com/40" alt="Perfil" className="w-10 h-10 rounded-full" />
+          <div>
+            <h3 className="text-red-600 font-medium">{nombre}</h3>
+            <div className="flex items-center text-sm text-gray-400">
+              <GiEarthAmerica className="mr-1" />
+              <span>Público</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-3 relative">
+          <textarea
+            placeholder="¿Qué estás pensando?"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="w-full bg-[#3A3B3C] text-white p-3 rounded-lg outline-none resize-none h-20"
+          />
+        </div>
+
+        {image && (
+          <div className="mt-3 w-full max-h-60 overflow-hidden rounded-lg">
+            <img src={image} alt="Preview" className="w-full max-h-60 object-cover" />
+          </div>
+        )}
+
+        {video && (
+          <div className="mt-3 w-full max-h-60 overflow-hidden rounded-lg">
+            <video controls src={video} className="w-full max-h-60 object-cover" />
+          </div>
+        )}
+
+        <label className="mt-3 flex items-center gap-2 bg-[#3A3B3C] p-2 rounded-lg cursor-pointer text-white text-sm">
+          <FaImages className="text-green-400" />
+          <span>Agregar foto o video</span>
+          <input
+            type="file"
+            accept="image/*,video/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                if (file.type.startsWith("image/")) {
+                  setFile(file);
+                  setImage(URL.createObjectURL(file));
+                  setVideo(null);
+                  setVideoFile(null);
+                } else if (file.type.startsWith("video/")) {
+                  setVideoFile(file);
+                  setVideo(URL.createObjectURL(file));
+                  setFile(null);
+                  setImage(null);
+                }
+              }
+            }}
+            className="hidden"/>
+        </label>
+        <button
+          type="submit"
+          disabled={(!text && !image && !video) || loading}
+          className={`w-full mt-3 p-2 rounded-lg font-semibold ${
+            text || image || video ? "bg-blue-500 text-white" : "bg-gray-500 text-gray-300 cursor-not-allowed"
+          } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}>
+          {loading ? "Publicando..." : "Publicar"}
+        </button>
+      </form>
+    </div>
   );
 };

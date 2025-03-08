@@ -1,40 +1,43 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import { CiSquareAlert } from "react-icons/ci";
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
-import { Link, useNavigate } from 'react-router-dom';
-import { Toaster, toast } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
+import { supabase } from "../Lib/Supabase"; // Asegúrate de que la importación es correcta
 
 export const Profiles = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUser(data.user); // Guarda el usuario en el estado
+      } else {
+        console.error("Error obteniendo usuario:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     toast.loading("Cerrando sesión...");
 
-    setTimeout(() => {
+    setTimeout(async () => {
+      await supabase.auth.signOut();
       toast.dismiss();
-      toast.success("Hasta la proxima");
+      toast.success("Hasta la próxima");
       navigate("/");
-    }, 4000);
+    }, 2000);
   };
 
   return (
@@ -55,7 +58,9 @@ export const Profiles = () => {
               className="w-10 h-10 rounded-full"
             />
             <div className="ml-3">
-              <p className="font-semibold">Leonardo Gutierrez</p>
+              <p className="font-semibold">
+                {user ? user.email : "Cargando..."}
+              </p>
               <p className="text-sm text-gray-500">Ver todos los perfiles</p>
             </div>
           </div>
@@ -70,12 +75,13 @@ export const Profiles = () => {
               Pantalla y accesibilidad
             </button>
             <button className="w-full text-left flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none">
-              <CiSquareAlert />Enviar comentarios
+              <CiSquareAlert /> Enviar comentarios
             </button>
-            <button 
-              onClick={handleLogout} 
-              className="w-full text-left p-2 flex items-center text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none">
-              <MdLogout />Cerrar sesión
+            <button
+              onClick={handleLogout}
+              className="w-full text-left p-2 flex items-center text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none"
+            >
+              <MdLogout /> Cerrar sesión
             </button>
           </div>
         </div>

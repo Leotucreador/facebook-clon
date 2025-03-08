@@ -10,16 +10,17 @@ import { Publicar } from "../Publics/Publicar";
 const Home = () => {
   const [buscar, setBuscar] = useState('');
 
+  
   return (
     <>
       <Header />
       <div className="min-h-screen bg-[#1C1C1D] flex flex-col lg:flex-row p-4">
         {/* Sidebar */}
-        <div className="lg:w-1/4 w-full bg-[#1C1C1D] p-4 shadow-lg rounded-lg mb-4 lg:mb-0">
+        <div className="lg:w-1/4 w-full overflow-y-scroll bg-[#1C1C1D] p-4 shadow-lg rounded-lg mb-4 lg:mb-0">
           <div className="flex flex-col space-y-4">
-            <Link className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
+            <Link to="/User" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
               <FaUserAlt className="text-2xl" />
-              <span>Perfil</span>
+             Perfil
             </Link>
             <Link className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
               <FaUsers className="text-2xl" />
