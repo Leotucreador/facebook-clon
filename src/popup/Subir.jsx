@@ -7,45 +7,52 @@ import { supabase } from "../Lib/Supabase";
 export const Subir = ({ cerrar }) => {
   const [text, setText] = useState("");
   const [nombre, setNombre] = useState("Cargando...");
+  const [apellido, setApellido] = useState("Cargando...");
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [file, setFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
-    const fetchNombre = async () => {
+    const fetchNombreYApellido = async () => {
       const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
       if (sessionError) {
         setNombre("Error al obtener sesión");
+        setApellido("Error");
         return;
       }
       if (!sessionData?.session?.user) {
         setNombre("Usuario no autenticado");
+        setApellido("Desconocido");
         return;
       }
 
-      const userId = sessionData.session.user.id;
+      const userEmail = sessionData.session.user.email; // Usar el email del usuario
 
       const { data, error } = await supabase
         .from("session")
-        .select("nombre")
-        .eq("id_user", userId)
+        .select("nombre, apellido") // Obtener tanto el nombre como el apellido
+        .eq("email", userEmail) // Buscar por email
         .maybeSingle();
-        console.log("ID del usuario autenticado:", userId);
+
+      console.log("Email del usuario autenticado:", userEmail);
 
       if (error) {
         setNombre("Error al obtener datos");
+        setApellido("Error");
         return;
       }
       if (!data) {
         setNombre("Usuario sin datos");
+        setApellido("Desconocido");
         return;
       }
       setNombre(data.nombre || "Usuario sin nombre");
+      setApellido(data.apellido || "Usuario sin apellido");
     };
 
-    fetchNombre();
+    fetchNombreYApellido();
   }, []);
 
   const handlePost = async (e) => {
@@ -78,7 +85,7 @@ export const Subir = ({ cerrar }) => {
     const { error } = await supabase.from("posts").insert([
       {
         created_at: new Date(),
-        usuario: nombre,
+        usuario: `${nombre} ${apellido}`, // Combina el nombre y el apellido
         texto: text,
         imagen: imageUrl,
         video: videoUrl,
@@ -109,7 +116,7 @@ export const Subir = ({ cerrar }) => {
         <div className="flex items-center gap-3 mt-3">
           <img src="https://via.placeholder.com/40" alt="Perfil" className="w-10 h-10 rounded-full" />
           <div>
-            <h3 className="text-red-600 font-medium">{nombre}</h3>
+            <h3 className="text-red-600 font-medium">{`${nombre} ${apellido}`}</h3>
             <div className="flex items-center text-sm text-gray-400">
               <GiEarthAmerica className="mr-1" />
               <span>Público</span>
