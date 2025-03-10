@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../src/Lib/Supabase';
 import { Toaster, toast } from 'react-hot-toast';
+import { supabase } from '../Lib/Supabase';
 
 export const Login = () => {
     const [formData, setFormData] = useState({
