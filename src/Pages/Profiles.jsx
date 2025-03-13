@@ -44,8 +44,7 @@ export const Profiles = () => {
     <div className="relative" ref={menuRef}>
       <button
         onClick={toggleMenu}
-        className="hover:bg-gray-500 p-2 rounded-full focus:outline-none"
-      >
+        className="hover:bg-gray-500 p-2 rounded-full focus:outline-none">
         <FaUserAlt className="text-2xl" />
       </button>
 
@@ -79,8 +78,7 @@ export const Profiles = () => {
             </button>
             <button
               onClick={handleLogout}
-              className="w-full text-left p-2 flex items-center text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none"
-            >
+              className="w-full text-left p-2 flex items-center text-gray-700 hover:bg-gray-100 rounded-lg focus:outline-none">
               <MdLogout /> Cerrar sesión
             </button>
           </div>

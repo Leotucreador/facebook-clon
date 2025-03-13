@@ -116,7 +116,7 @@ export const Subir = ({ cerrar }) => {
         <div className="flex items-center gap-3 mt-3">
           <img src="https://via.placeholder.com/40" alt="Perfil" className="w-10 h-10 rounded-full" />
           <div>
-            <h3 className="text-red-600 font-medium">{`${nombre} ${apellido}`}</h3>
+            <h3 className="text-white font-medium">{`${nombre} ${apellido}`}</h3>
             <div className="flex items-center text-sm text-gray-400">
               <GiEarthAmerica className="mr-1" />
               <span>Público</span>
@@ -129,8 +129,7 @@ export const Subir = ({ cerrar }) => {
             placeholder="¿Qué estás pensando?"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="w-full bg-[#3A3B3C] text-white p-3 rounded-lg outline-none resize-none h-20"
-          />
+            className="w-full bg-[#3A3B3C] text-white p-3 rounded-lg outline-none resize-none h-20"/>
         </div>
 
         {image && (

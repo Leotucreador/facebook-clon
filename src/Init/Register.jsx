@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../Lib/Supabase";
 
 export const Register = () => {
@@ -123,7 +123,11 @@ export const Register = () => {
           {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
           <button type="submit" className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold mt-4 hover:bg-green-700">Registrarte</button>
         </form>
-        <Link to="/" className="text-center text-blue-600 mt-4 cursor-pointer hover:underline block">¿Ya tienes una cuenta?</Link>
+        <button
+          onClick={() => navigate("/")}
+          className="text-center text-blue-600 mt-4 cursor-pointer hover:underline block w-full">
+          ¿Ya tienes una cuenta?
+        </button>
       </div>
     </div>
   );
