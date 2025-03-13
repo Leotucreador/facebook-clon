@@ -2,12 +2,12 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import Home from "./Pages/Home";
 import Watch from "./Pages/Watch";
-import { Profiles } from "./Pages/Profiles";
 import { Notification } from "./Pages/Notification";
 import { Messages } from "./Pages/Messages";
 import { User } from "./edit/User";
-import { Register } from "./Init/Register";
 import { Login } from "./Init/Login";
+import { Register } from "./Init/Register";
+import { Profiles } from "./Pages/Profiles";
 
 function App() {
   return (

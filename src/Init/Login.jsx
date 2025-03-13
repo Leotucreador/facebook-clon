@@ -9,23 +9,19 @@ export const Login = () => {
         password: "",
     });
     const navigate = useNavigate();
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        toast.loading("Verificando datos");
-
+        toast.loading("Cargando..."); // 
         const { error } = await supabase.auth.signInWithPassword({
             email: formData.email,
             password: formData.password,
         });
 
         setTimeout(() => {
-            toast.dismiss(); // Cierra el toast de carga
+            toast.dismiss();
             if (error) {
                 toast.error("Error: " + error.message);
             } else {
@@ -52,21 +48,18 @@ export const Login = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 placeholder="Correo electrónico o número de teléfono"
-                                className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                                className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                             <input
                                 type="password"
                                 name="password"
                                 value={formData.password}
                                 onChange={handleChange}
                                 placeholder="Contraseña"
-                                className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
+                                className="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                         </div>
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold mt-4 hover:bg-blue-700 transition"
-                        >
+                            className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold mt-4 hover:bg-blue-700 transition">
                             Iniciar sesión
                         </button>
                     </form>
@@ -76,8 +69,7 @@ export const Login = () => {
                     <hr className="my-4" />
                     <button
                         onClick={() => navigate('/Register')}
-                        className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 transition"
-                    >
+                        className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 transition">
                         Crear una cuenta
                     </button>
                 </section>

@@ -62,16 +62,14 @@ export const Comment = ({ postsid }) => {
     <div className="relative w-full">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 text-gray-400 hover:text-white"
-      >
+        className="flex items-center gap-2 text-gray-400 hover:text-white">
         <FaRegComment /> Comentar
       </button>
 
       <div
         className={`absolute left-0 w-full bg-gray-800 rounded-lg p-3 transition-all duration-300 ${
           isOpen ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
-      >
+        }`}>
         <form onSubmit={enviarComentario} className="flex items-center gap-2">
           <input
             type="text"

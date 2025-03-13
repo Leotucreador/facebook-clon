@@ -9,6 +9,13 @@ export default defineConfig({
     react(),
   ],
   build: {
-    sourcemap: false, // Desactiva los mapas de fuentes para evitar errores
+    sourcemap: false,
+    outDir: 'dist',
+    assetsDir: 'assets', // Asegura que los assets se coloquen en la carpeta correcta
   },
+  server: {
+    headers: {
+      'Cache-Control': 'public, max-age=31536000, immutable'
+    }
+  }
 })

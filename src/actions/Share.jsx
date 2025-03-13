@@ -16,15 +16,15 @@ export const Share = ({ postId, usuario, texto, imagen, video }) => {
         texto: `📢 ${usuario} compartió una publicación: "${texto}"`,
         imagen,
         video,
-        original_post_id: postId, // Guardamos referencia a la publicación original
+        original_post_id: postId, 
       },
     ]);
 
     setLoading(false);
     if (error) {
-      console.error("❌ Error al compartir:", error);
+      console.error("Ups! parece que hubo un error:", error);
     } else {
-      console.log("✅ Publicación compartida con éxito.");
+      console.log("Se ha compartido la publicación");
     }
   };
 

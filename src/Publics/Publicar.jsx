@@ -8,7 +8,6 @@ export const Publicar = () => {
 
   return (
     <section className="bg-[#252728] mb-7 text-white p-4 rounded-lg shadow-md w-full max-w-md">
-      {/* Input de publicación */}
       <div className="flex items-center justify-center gap-3">
         <img
           src="https://via.placeholder.com/40"
@@ -18,14 +17,12 @@ export const Publicar = () => {
         <input
           type="text"
           onClick={() => setSubir(true)}
-          placeholder="¿Qué estás pensando, Leonardo?"
+          placeholder="¿Qué estás pensando?"
           className="flex-1 bg-[#3A3B3C] text-white p-2 rounded-full outline-none cursor-pointer"
           readOnly
         />
       </div>
       <hr className="my-3 border-gray-700" />
-
-      {/* Botones de acción */}
       <div className="flex justify-around flex-wrap">
         <button className="flex items-center justify-center w-full md:w-auto hover:bg-gray-500 gap-2 text-red-500 p-2 rounded-lg">
           <FaVideo className="text-xl" />

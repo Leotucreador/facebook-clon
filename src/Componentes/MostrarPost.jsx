@@ -11,8 +11,8 @@ import { History } from "../edit/History";
 
 export function MostrarPost() {
   const [posts, setPosts] = useState([]);
-  const [showOption, setShowOption] = useState(false);
-  const [showImage, setShowImage] = useState(null); // Estado para la imagen en pantalla completa
+  const [opciones, setopciones] = useState(false);
+  const [imagen, setimagen] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,7 +22,7 @@ export function MostrarPost() {
         .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Error al obtener publicaciones:", error);
+        console.error("No se encuentran publicaciones disponibles", error);
       } else {
         setPosts(data);
       }
@@ -30,7 +30,6 @@ export function MostrarPost() {
 
     fetchPosts();
 
-    // Suscribirse a nuevos posts en tiempo real
     const subscription = supabase
       .channel("realtime_posts")
       .on(
@@ -61,7 +60,7 @@ export function MostrarPost() {
                   <p className="text-sm text-gray-500">{new Date(post.created_at).toLocaleString()}</p>
                 </div>
                 <div className="flex items-center text-white space-x-2 text-2xl gap-2">
-                  <button className="text-2xl" onClick={() => setShowOption(true)}>
+                  <button className="text-2xl" onClick={() => setopciones(true)}>
                     <BsThreeDots />
                   </button>
                   <button>
@@ -79,7 +78,7 @@ export function MostrarPost() {
                   src={post.imagen}
                   alt="Publicación"
                   className="w-full h-auto max-h-[500px] sm:max-h-[400px] md:max-h-[450px] lg:max-h-[500px] xl:max-h-[550px] object-contain rounded-lg cursor-pointer"
-                  onClick={() => setShowImage(post.imagen)} // Mostrar imagen en pantalla completa
+                  onClick={() => setimagen(post.imagen)} 
                 />
               </div>
             )}
@@ -100,14 +99,12 @@ export function MostrarPost() {
       ) : (
         <p className="text-gray-500 text-center">No hay publicaciones disponibles</p>
       )}
+      {opciones && <Option ola={opciones} cerrar={() => setopciones(false)} />}
 
-      {showOption && <Option ola={showOption} cerrar={() => setShowOption(false)} />}
-
-      {/* Modal para imagen en pantalla completa */}
-      {showImage && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50" onClick={() => setShowImage(null)}>
-          <img src={showImage} alt="Imagen ampliada" className="max-w-full max-h-full rounded-lg" />
-          <button className="absolute top-5 right-5 text-white text-3xl" onClick={() => setShowImage(null)}>
+      {imagen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50" onClick={() => setimagen(null)}>
+          <img src={imagen} alt="Imagen ampliada" className="max-w-full max-h-full rounded-lg" />
+          <button className="absolute top-5 right-5 text-white text-3xl" onClick={() => setimagen(null)}>
             <IoClose />
           </button>
         </div>

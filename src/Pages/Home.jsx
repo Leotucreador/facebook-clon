@@ -15,8 +15,7 @@ const Home = () => {
     <>
       <Header />
       <div className="min-h-screen bg-[#1C1C1D] flex flex-col lg:flex-row p-4">
-        {/* Sidebar */}
-        <div className="lg:w-1/4 w-full overflow-y-scroll bg-[#1C1C1D] p-4 shadow-lg rounded-lg mb-4 lg:mb-0">
+        <section className="lg:w-1/4 w-full overflow-y-scroll bg-[#1C1C1D] p-4 shadow-lg rounded-lg mb-4 lg:mb-0">
           <div className="flex flex-col space-y-4">
             <Link to="/User" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
               <FaUserAlt className="text-2xl" />
@@ -24,14 +23,14 @@ const Home = () => {
             </Link>
             <Link className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
               <FaUsers className="text-2xl" />
-              <span>Amigos</span>
+              Amigos
             </Link>
             <Link className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
               <FaBell className="text-2xl" />
-              <span>Notificaciones</span>
+              Notificaciones
             </Link>
           </div>
-        </div>
+        </section>
 
 
         <div className="flex flex-col items-center lg:w-2/4 w-full bg-[#1C1C1D] p-4 shadow-lg rounded-lg mx-0 lg:mx-4">

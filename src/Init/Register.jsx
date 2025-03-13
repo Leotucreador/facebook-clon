@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../Lib/Supabase";
 
-
 export const Register = () => {
   const [formData, setFormData] = useState({
     userName: "",
@@ -43,7 +42,6 @@ export const Register = () => {
     const fechaNacimiento = `${formData.ano}-${mesNumero}-${diaNumero}`;
     
     try {
-      // Crear usuario en Supabase Auth
       const { data, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
@@ -55,15 +53,11 @@ export const Register = () => {
         alert("Error: " + authError.message);
         return;
       }
-
-      // Obtener ID del usuario registrado
       const userId = data?.user?.id;
       if (!userId) {
         setError("No se pudo obtener el ID del usuario.");
         return;
       }
-
-      // Insertar datos en la tabla 'sessions'
       const { error: dbError } = await supabase.from("session").insert([
         {
           nombre: formData.userName,

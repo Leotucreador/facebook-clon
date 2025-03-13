@@ -8,29 +8,29 @@ export const Acess = () => {
       <div className="flex flex-col space-y-4">
         <Link to="/User" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaUserAlt className="text-2xl" />
-          <span>Perfil</span>
+          Perfil
         </Link>
         <Link to="/friends" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaUsers className="text-2xl" />
-          <span>Amigos</span>
+          Amigos
         </Link>
         <Link to="/notifications" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaBell className="text-2xl" />
-          <span>Notificaciones</span>
+          Notifiaciones
         </Link>
         <Link to="/saved" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaBell className="text-2xl" />
-          <span>Guardado</span>
+          Guardado
         </Link>
         <Link to="/groups" className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaUsers className="text-2xl" />
-          <span>Grupos</span>
+          Grupos
         </Link>
         {Array.from({ length: 20 }).map((_, index) => (
           <Link key={index} to={`/section${index + 1}`} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
             <FaUsers className="text-2xl" />
-            <span>Sección {index + 1}</span>
-          </Link>
+            Sección {index + 1}
+         </Link>
         ))}
       </div>
     </div>

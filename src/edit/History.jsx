@@ -8,10 +8,10 @@ import { supabase } from "../Lib/Supabase";
 
 
 export const History = () => {
-  const [stories, setStories] = useState([]);
+  const [historias, sethistorias] = useState([]);
 
   useEffect(() => {
-    const fetchStories = async () => {
+    const fetchhistorias = async () => {
       const { data, error } = await supabase.storage.from("history").list("", {
         limit: 10,
         sortBy: { column: "created_at", order: "desc" },
@@ -20,11 +20,11 @@ export const History = () => {
       if (error) {
         console.error("Error al obtener historias:", error);
       } else {
-        setStories(data);
+        sethistorias(data);
       }
     };
 
-    fetchStories();
+    fetchhistorias();
   }, []);
 
   const handleUpload = async (event) => {
@@ -37,7 +37,7 @@ export const History = () => {
     if (error) {
       console.error("Error al subir historia:", error);
     } else {
-      setStories((prev) => [{ name: filePath }, ...prev]);
+      sethistorias((prev) => [{ name: filePath }, ...prev]);
     }
   };
 
@@ -64,7 +64,7 @@ export const History = () => {
           </label>
         </SwiperSlide>
 
-        {stories.map((story) => (
+        {historias.map((story) => (
           <SwiperSlide key={story.name} className="w-24">
             <img
               src={`${supabaseUrl}/storage/v1/object/public/history/${story.name}`}

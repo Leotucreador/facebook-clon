@@ -14,7 +14,6 @@ export const Header = () => {
 
   return (
     <nav className="flex justify-between items-center px-4 py-2 bg-[#252728] text-white">
-      {/* Izquierda: Logo y búsqueda */}
       <div className="flex items-center gap-3">
         <Link to="/Home">
           <FaFacebook className="text-blue-500 text-4xl cursor-pointer" />
@@ -29,7 +28,6 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Centro: Iconos de navegación */}
       <div className="hidden md:flex space-x-6 text-gray-400">
         <Link to="/Home" title='Inicio' className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/' ? 'text-blue-500' : ''}`}>
           <GoHome className="text-2xl" />
@@ -44,8 +42,6 @@ export const Header = () => {
           <FaGamepad className="text-2xl" />
         </Link>
       </div>
-
-      {/* Derecha: Notificaciones, menú y usuario */}
       <div className="flex items-center gap-4">
         <Link title='Messenger' className="hover:bg-gray-500 p-2 rounded-full">
           <FaFacebookMessenger className="text-2xl" />
@@ -59,7 +55,6 @@ export const Header = () => {
         <Profiles />
       </div>
 
-      {/* Menú en dispositivos móviles */}
       {menuOpen && (
         <div className="absolute top-14 left-0 w-full bg-[#252728] p-4 flex flex-col items-center space-y-4 md:hidden">
           <Link to="/Home" title='Inicio' className="text-white text-lg">Inicio</Link>

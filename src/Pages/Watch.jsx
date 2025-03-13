@@ -45,7 +45,7 @@ const Watch = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Ver en YouTube
+              Ver en solicitudes
             </a>
           </li>
         ))}
