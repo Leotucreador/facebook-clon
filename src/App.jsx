@@ -16,9 +16,9 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Watch" element={<Watch />} />
-        <Route path="/groups" element={<h1 className="text-center text-white">Grupos</h1>} />
-        <Route path="/gaming" element={<h1 className="text-center text-white">Juegos</h1>} />
-        <Route path="/menu" element={<h1 className="text-center text-white">Menú</h1>} />
+        <Route path="/groups" element={<Grupos />} />
+        <Route path="/gaming" element={<Juegos />} />
+        <Route path="/menu" element={<Menú/>} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/Notis" element={<Notification />} />
         <Route path="/Profiles" element={<Profiles />} />
