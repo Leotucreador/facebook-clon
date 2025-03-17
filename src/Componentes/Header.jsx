@@ -8,7 +8,7 @@ import { MdGroups, MdOutlineLiveTv } from "react-icons/md";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Profiles } from '../Pages/Profiles';
 import { Friends } from '../Panel/Friends';
-Friends
+
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -37,19 +37,19 @@ export const Header = () => {
         <button onClick={() => navigate('/Watch')} title="Video" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Watch' ? 'text-blue-500' : ''}`}>
           <MdOutlineLiveTv className="text-2xl" />
         </button>
-        <button onClick={() => navigate('/Groups')} title="Grupo" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Groups' ? 'text-blue-500' : ''}`}>
+        <button onClick={() => navigate('/Home')} title="Grupo" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Home' ? 'text-blue-500' : ''}`}>
           <MdGroups className="text-2xl" />
         </button>
-        <button onClick={() => navigate('/Gaming')} title="Videojuegos" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Gaming' ? 'text-blue-500' : ''}`}>
+        <button onClick={() => navigate('/Home')} title="Videojuegos" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Home' ? 'text-blue-500' : ''}`}>
           <FaGamepad className="text-2xl" />
         </button>
       </div>
 
       <div className="flex items-center gap-4">
-        <button onClick={() => navigate('/Messenger')} title="Messenger" className="hover:bg-gray-500 p-2 rounded-full">
+        <button onClick={() => navigate('/Messages')} title="Messenger" className="hover:bg-gray-500 p-2 rounded-full">
           <FaFacebookMessenger className="text-2xl" />
         </button>
-        <button onClick={() => navigate('/Notifications')} title="Notificaciones" className="hover:bg-gray-500 p-2 rounded-full">
+        <button onClick={() => navigate('/Notification')} title="Notificaciones" className="hover:bg-gray-500 p-2 rounded-full">
           <IoNotifications className="text-2xl" />
         </button>
         <button className="md:hidden text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
@@ -62,8 +62,8 @@ export const Header = () => {
         <div className="absolute top-14 left-0 w-full bg-[#252728] p-4 flex flex-col items-center space-y-4 md:hidden">
           <button onClick={() => navigate('/Home')} title="Inicio" className="text-white text-lg">Inicio</button>
           <button onClick={() => navigate('/Watch')} title="Video" className="text-white text-lg">Videos</button>
-          <button onClick={() => navigate('/Groups')} title="Grupo" className="text-white text-lg">Grupos</button>
-          <button onClick={() => navigate('/Gaming')} title="Videojuegos" className="text-white text-lg">Juegos</button>
+          <button onClick={() => navigate('/Home')} title="Grupo" className="text-white text-lg">Grupos</button>
+          <button onClick={() => navigate('/Home')} title="Videojuegos" className="text-white text-lg">Juegos</button>
         </div>
       )}
     </nav>

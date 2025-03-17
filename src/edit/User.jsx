@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Header } from "../Componentes/Header";
 import { supabase } from "../Lib/Supabase";
 
-
 export const User = () => {
   const [nombre, setNombre] = useState("Cargando...");
   const [apellido, setApellido] = useState("Cargando...");

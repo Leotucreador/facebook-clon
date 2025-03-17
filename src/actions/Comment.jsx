@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../Lib/Supabase";
 import { FaRegComment } from "react-icons/fa";
-import { MostrarPost } from "../Componentes/MostrarPost";
 
 export const Comment = ({ postsid }) => {
   const [comentario, setComentario] = useState("");

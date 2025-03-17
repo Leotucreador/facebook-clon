@@ -10,5 +10,13 @@ export default defineConfig({
   build: {
     sourcemap: false,
   },
-  base: '/', 
+  base: '/',
+  server: {
+    port: 5173, // Cambia si lo necesitas
+    hmr: {
+      protocol: 'ws',       // usa 'ws' para HTTP, 'wss' si usas HTTPS
+      host: 'localhost',    // o tu IP si accedes desde otro dispositivo
+      port: 5173,           // asegúrate que esté libre
+    },
+  },
 })

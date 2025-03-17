@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import ReactPlayer from "react-player";
-import { Comment } from "../actions/Comment";
 import { Reacts } from "../actions/Reacts";
 import { Share } from "../actions/Share";
 import { supabase } from "../Lib/Supabase";
 import { Option } from "../popup/Option";
 import { History } from "../edit/History";
+import { Comment } from "../actions/Comment";
+
 
 export function MostrarPost() {
   const [posts, setPosts] = useState([]);

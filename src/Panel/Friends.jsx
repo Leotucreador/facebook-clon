@@ -3,7 +3,7 @@ import { Header } from '../Componentes/Header'
 
 export const Friends = () => {
   return (
-    <div>
+    <>
         <Header/>
         <div class="card text-start">
             <img class="card-img-top" src="holder.js/100px180/" alt="Title" />
@@ -13,6 +13,6 @@ export const Friends = () => {
             </div>
         </div>
         
-    </div>
+    </>
   )
 }
