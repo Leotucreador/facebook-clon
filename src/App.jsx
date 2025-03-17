@@ -1,33 +1,37 @@
+import { lazy, Suspense } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-import Home from "./Pages/Home";
-import Watch from "./Pages/Watch";
-import { Notification } from "./Pages/Notification";
-import { Messages } from "./Pages/Messages";
-import { User } from "./edit/User";
-import { Login } from "./Init/Login";
-import { Register } from "./Init/Register";
-import { Profiles } from "./Pages/Profiles";
-import { Gaming } from "./Pages/Gaming";
-import { Menu } from "./Pages/Menu";
-import { Groups } from "./Pages/Groups";
+// Importaciones dinámicas (lazy loading)
+const Home = lazy(() => import("./Pages/Home"));
+const Watch = lazy(() => import("./Pages/Watch"));
+const Notification = lazy(() => import("./Pages/Notification"));
+const Messages = lazy(() => import("./Pages/Messages"));
+const User = lazy(() => import("./edit/User"));
+const Login = lazy(() => import("./Init/Login"));
+const Register = lazy(() => import("./Init/Register"));
+const Profiles = lazy(() => import("./Pages/Profiles"));
+const Gaming = lazy(() => import("./Pages/Gaming"));
+const Menu = lazy(() => import("./Pages/Menu"));
+const Groups = lazy(() => import("./Pages/Groups"));
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/Groups" element={<Groups/>}/>
-        <Route path="/Menu" element={<Menu/>}/>
-        <Route path="/Home" element={<Home />} />
-        <Route path="/Watch" element={<Watch />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/Notis" element={<Notification />} />
-        <Route path="/Profiles" element={<Profiles />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/User" element={<User />} />
-        <Route path="/Gaming" element={<Gaming/>}/>
-      </Routes>
+      <Suspense fallback={<div className="text-center p-4">Cargando...</div>}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/Groups" element={<Groups />} />
+          <Route path="/Menu" element={<Menu />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Watch" element={<Watch />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/Notis" element={<Notification />} />
+          <Route path="/Profiles" element={<Profiles />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/User" element={<User />} />
+          <Route path="/Gaming" element={<Gaming />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }
