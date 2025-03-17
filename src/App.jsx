@@ -9,6 +9,7 @@ import { Login } from "./Init/Login";
 import { Register } from "./Init/Register";
 import { Profiles } from "./Pages/Profiles";
 
+
 function App() {
   return (
     <Router>
@@ -16,9 +17,6 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Watch" element={<Watch />} />
-        <Route path="/groups" element={<Grupos />} />
-        <Route path="/gaming" element={<Juegos />} />
-        <Route path="/menu" element={<Menú/>} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/Notis" element={<Notification />} />
         <Route path="/Profiles" element={<Profiles />} />
