@@ -10,5 +10,5 @@ export default defineConfig({
   build: {
     sourcemap: false,
   },
-  base: '/', // ESTA LÍNEA ES CLAVE para que Vercel no rompa las rutas
+  base: '/', 
 })
