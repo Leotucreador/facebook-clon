@@ -12,19 +12,15 @@ export const Acess = () => {
           <FaUserAlt className="text-2xl" />
           <span>Perfil</span>
         </button>
-        <button onClick={() => navigate("/friends")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
+        <button onClick={() => navigate("/Friends")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaUsers className="text-2xl" />
           <span>Amigos</span>
         </button>
-        <button onClick={() => navigate("/notifications")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
+        <button onClick={() => navigate("/Notifications")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaBell className="text-2xl" />
           <span>Notificaciones</span>
         </button>
-        <button onClick={() => navigate("/saved")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
-          <FaBell className="text-2xl" />
-          <span>Guardado</span>
-        </button>
-        <button onClick={() => navigate("/groups")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
+        <button onClick={() => navigate("/Groups")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaUsers className="text-2xl" />
           <span>Grupos</span>
         </button>

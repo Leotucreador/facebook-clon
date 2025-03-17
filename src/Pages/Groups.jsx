@@ -10,8 +10,7 @@ export const Groups = () => {
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#Id1"
-        aria-controls="Id1"
-      >
+        aria-controls="Id1">
         Enable both scrolling & backdrop
       </button>
       

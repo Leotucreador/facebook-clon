@@ -7,7 +7,8 @@ import { IoNotifications } from "react-icons/io5";
 import { MdGroups, MdOutlineLiveTv } from "react-icons/md";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Profiles } from '../Pages/Profiles';
-
+import { Friends } from '../Panel/Friends';
+Friends
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();

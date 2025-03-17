@@ -13,6 +13,7 @@ const Profiles = lazy(() => import("./Pages/Profiles"));
 const Gaming = lazy(() => import("./Pages/Gaming"));
 const Menu = lazy(() => import("./Pages/Menu"));
 const Groups = lazy(() => import("./Pages/Groups"));
+const Friends = Lazy (()=> import("./Panel/Friends"));
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Suspense fallback={<div className="text-center p-4">Cargando...</div>}>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/Friends" element={<Friends/>}/>
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Menu" element={<Menu />} />
           <Route path="/Home" element={<Home />} />
