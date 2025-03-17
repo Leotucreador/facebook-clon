@@ -39,7 +39,7 @@ export const Header = () => {
         <button onClick={() => navigate('/Groups')} title="Grupo" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Groups' ? 'text-blue-500' : ''}`}>
           <MdGroups className="text-2xl" />
         </button>
-        <button onClick={() => navigate('/Games')} title="Videojuegos" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Games' ? 'text-blue-500' : ''}`}>
+        <button onClick={() => navigate('/Gaming')} title="Videojuegos" className={`hover:bg-gray-500 p-2 rounded-lg ${location.pathname === '/Gaming' ? 'text-blue-500' : ''}`}>
           <FaGamepad className="text-2xl" />
         </button>
       </div>
@@ -62,7 +62,7 @@ export const Header = () => {
           <button onClick={() => navigate('/Home')} title="Inicio" className="text-white text-lg">Inicio</button>
           <button onClick={() => navigate('/Watch')} title="Video" className="text-white text-lg">Videos</button>
           <button onClick={() => navigate('/Groups')} title="Grupo" className="text-white text-lg">Grupos</button>
-          <button onClick={() => navigate('/Games')} title="Videojuegos" className="text-white text-lg">Juegos</button>
+          <button onClick={() => navigate('/Gaming')} title="Videojuegos" className="text-white text-lg">Juegos</button>
         </div>
       )}
     </nav>
