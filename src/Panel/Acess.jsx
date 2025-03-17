@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaBell, FaUserAlt, FaUsers } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Acess = () => {
   const navigate = useNavigate();
@@ -12,10 +12,10 @@ export const Acess = () => {
           <FaUserAlt className="text-2xl" />
           <span>Perfil</span>
         </button>
-        <button onClick={() => navigate("/Friends")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
+        <Link to="/Friends"  className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaUsers className="text-2xl" />
           <span>Amigos</span>
-        </button>
+        </Link>
         <button onClick={() => navigate("/Notifications")} className="flex items-center space-x-3 text-gray-600 hover:text-blue-500">
           <FaBell className="text-2xl" />
           <span>Notificaciones</span>
